@@ -46,7 +46,7 @@ class Character
     private $age;
 
     /**
-     * @ORM\OneToMany(targetEntity=Play::class, mappedBy="Charact", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Play::class, mappedBy="charact")
      */
     private $plays;
 

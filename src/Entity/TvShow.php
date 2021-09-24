@@ -29,7 +29,7 @@ class TvShow
     /**
      * @ORM\Column(type="text")
      */
-    private $synopsis;
+    private $synopsys;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -69,13 +69,13 @@ class TvShow
     /**
      * @ORM\OneToMany(targetEntity=Play::class, mappedBy="tvshow")
      */
-    private $Plays;
+    private $plays;
 
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->categories = new ArrayCollection();
-        $this->Plays = new ArrayCollection();
+        $this->plays = new ArrayCollection();
 
         $this->createdAt = new DateTimeImmutable();
         $this->nbLikes = 0;
@@ -100,12 +100,12 @@ class TvShow
 
     public function getSynopsis(): ?string
     {
-        return $this->synopsis;
+        return $this->synopsys;
     }
 
-    public function setSynopsis(string $synopsis): self
+    public function setSynopsis(string $synopsys): self
     {
-        $this->synopsis = $synopsis;
+        $this->synopsis = $synopsys;
 
         return $this;
     }
@@ -232,22 +232,22 @@ class TvShow
         return $this->Plays;
     }
 
-    public function addRolePlay(Play $Play): self
+    public function addPlay(Play $play): self
     {
-        if (!$this->Plays->contains($Play)) {
-            $this->Plays[] = $Play;
-            $Play->setTvshow($this);
+        if (!$this->plays->contains($play)) {
+            $this->plays[] = $play;
+            $play->setTvshow($this);
         }
 
         return $this;
     }
 
-    public function removePlay(Play $Play): self
+    public function removePlay(Play $play): self
     {
-        if ($this->Plays->removeElement($Play)) {
+        if ($this->Plays->removeElement($play)) {
             // set the owning side to null (unless already changed)
-            if ($Play->getTvshow() === $this) {
-                $Play->setTvshow(null);
+            if ($play->getTvshow() === $this) {
+                $play->setTvshow(null);
             }
         }
 

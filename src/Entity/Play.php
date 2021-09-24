@@ -23,13 +23,13 @@ class Play
     private $creditOrder;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="rolePlays")
+     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="plays")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $personage;
+    private $charact;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="rolePlays")
+     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="plays")
      * @ORM\JoinColumn(nullable=false)
      */
     private $tvshow;
@@ -51,14 +51,14 @@ class Play
         return $this;
     }
 
-    public function getPersonage(): ?Character
+    public function getCharact(): ?Character
     {
-        return $this->personage;
+        return $this->charact;
     }
 
-    public function setPersonage(?Character $personage): self
+    public function setCharact(?Character $charact): self
     {
-        $this->personage = $personage;
+        $this->charact = $charact;
 
         return $this;
     }

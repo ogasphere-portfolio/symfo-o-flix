@@ -19,7 +19,7 @@ class TvShowRepository extends ServiceEntityRepository
         parent::__construct($registry, TvShow::class);
     }
 
-   /**
+    /**
      * Récupère toutes les informations liées au tvShow demandé
      * @return TvShow
      */
@@ -44,10 +44,34 @@ class TvShowRepository extends ServiceEntityRepository
         )->setParameter('id', $id);
 
         // returns the selected TvShow Object
-        return $query->getOneOrNullResult();
+       return $query->getOneOrNullResult();
     }
 
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return TvShow[]
+     */
+    public function findAllWithAllInfos(): TvShow
+    {
+        $entityManager = $this->getEntityManager();
 
+        // on va utiliser le DQL ( Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            'SELECT t, s, e
+            -- dans le select il faut penser à ajouter les objets que l on veut récupérer
+            -- car le SELECT t équivaut à SELECT tv_show.*
+            -- En DQL on requête des objets ! donc on fournit le FQCN de l objet à récupérer
+            FROM App\Entity\TvShow t
+            -- le join permet de faire le inner join et de récupérer directement les informations de la table reliée
+            JOIN t.seasons s
+            -- vous remarquerez que l on passe par les propriétés de l objet // ON PENSE OBJET ET NON SQL !
+            JOIN s.episodes e'
+
+        );
+        
+        // returns the selected TvShow Object
+        return $query->getResult();
+    }
     
     // /**
     //  * @return TvShow[] Returns an array of TvShow objects
