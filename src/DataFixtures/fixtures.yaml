@@ -1,0 +1,22 @@
+App\Entity\Category :
+     category_{1..10} :
+         name : '<jobTitle()>'
+
+App\Entity\Character :
+     character{1..10} :
+        first_name : <firstName()>,  
+        last_name : <lastName()>,
+        gender : <numberBetween(1, 2)>
+        
+
+App\Entity\Episode :
+    episode{1..10} :
+        episodeNumber : <numberBetween(1, 10)>
+        title : <word()>,
+
+App\Entity\TvShow:
+    tvshow_{1..4}:
+        title: '<word()>' 
+        synopsis: '<realText(200)>'
+        categories: '5x @category_*'
+

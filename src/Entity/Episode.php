@@ -47,6 +47,19 @@ class Episode
      */
     private $season;
 
+    public function __construct()
+    {
+        $this->setUpdatedAt(new \DateTimeImmutable('now'));    
+        
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable('now'));
+        }
+        if ($this->getPublishedAt() === null) {
+            $this->setPublishedAt(new \DateTimeImmutable('now'));
+        }
+      
+       
+    }
     public function getId(): ?int
     {
         return $this->id;

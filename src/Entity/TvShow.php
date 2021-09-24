@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\TvShowRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\TvShowRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass=TvShowRepository::class)
@@ -25,9 +27,9 @@ class TvShow
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $synopsys;
+    private $synopsis;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -35,7 +37,7 @@ class TvShow
     private $image;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $nbLikes;
 
@@ -60,14 +62,23 @@ class TvShow
     private $seasons;
 
     /**
-     * @ORM\OneToMany(targetEntity=Play::class, mappedBy="tvShow", orphanRemoval=true)
+     * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tvShows")
      */
-    private $plays;
+    private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Play::class, mappedBy="tvshow")
+     */
+    private $Plays;
 
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
-        $this->plays = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->Plays = new ArrayCollection();
+
+        $this->createdAt = new DateTimeImmutable();
+        $this->nbLikes = 0;
     }
 
     public function getId(): ?int
@@ -87,14 +98,14 @@ class TvShow
         return $this;
     }
 
-    public function getSynopsys(): ?string
+    public function getSynopsis(): ?string
     {
-        return $this->synopsys;
+        return $this->synopsis;
     }
 
-    public function setSynopsys(?string $synopsys): self
+    public function setSynopsis(string $synopsis): self
     {
-        $this->synopsys = $synopsys;
+        $this->synopsis = $synopsis;
 
         return $this;
     }
@@ -116,7 +127,7 @@ class TvShow
         return $this->nbLikes;
     }
 
-    public function setNbLikes(?int $nbLikes): self
+    public function setNbLikes(int $nbLikes): self
     {
         $this->nbLikes = $nbLikes;
 
@@ -190,29 +201,53 @@ class TvShow
     }
 
     /**
-     * @return Collection|Play[]
+     * @return Collection|Category[]
      */
-    public function getPlays(): Collection
+    public function getCategories(): Collection
     {
-        return $this->plays;
+        return $this->categories;
     }
 
-    public function addPlay(Play $play): self
+    public function addCategory(Category $category): self
     {
-        if (!$this->plays->contains($play)) {
-            $this->plays[] = $play;
-            $play->setTvShow($this);
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
         }
 
         return $this;
     }
 
-    public function removePlay(Play $play): self
+    public function removeCategory(Category $category): self
     {
-        if ($this->plays->removeElement($play)) {
+        $this->categories->removeElement($category);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Play[]
+     */
+    public function getPlays(): Collection
+    {
+        return $this->Plays;
+    }
+
+    public function addRolePlay(Play $Play): self
+    {
+        if (!$this->Plays->contains($Play)) {
+            $this->Plays[] = $Play;
+            $Play->setTvshow($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlay(Play $Play): self
+    {
+        if ($this->Plays->removeElement($Play)) {
             // set the owning side to null (unless already changed)
-            if ($play->getTvShow() === $this) {
-                $play->setTvShow(null);
+            if ($Play->getTvshow() === $this) {
+                $Play->setTvshow(null);
             }
         }
 

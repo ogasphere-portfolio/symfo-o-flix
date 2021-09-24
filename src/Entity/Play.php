@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PlayRepository;
+use App\Repository\RolePlayRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=PlayRepository::class)
+ * @ORM\Entity(repositoryClass=RolePlayRepository::class)
  */
 class Play
 {
@@ -18,93 +18,59 @@ class Play
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $creditOrder;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="plays")
+     * @ORM\ManyToOne(targetEntity=Character::class, inversedBy="rolePlays")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Charact;
+    private $personage;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="plays")
+     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="rolePlays")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $tvShow;
+    private $tvshow;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(?string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(?string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getCreditOrder(): ?string
+    public function getCreditOrder(): ?int
     {
         return $this->creditOrder;
     }
 
-    public function setCreditOrder(?string $creditOrder): self
+    public function setCreditOrder(int $creditOrder): self
     {
         $this->creditOrder = $creditOrder;
 
         return $this;
     }
 
-    public function getCharact(): ?Character
+    public function getPersonage(): ?Character
     {
-        return $this->Charact;
+        return $this->personage;
     }
 
-    public function setCharact(?Character $Charact): self
+    public function setPersonage(?Character $personage): self
     {
-        $this->Charact = $Charact;
+        $this->personage = $personage;
 
         return $this;
     }
 
-    public function getTvShow(): ?TvShow
+    public function getTvshow(): ?TvShow
     {
-        return $this->tvShow;
+        return $this->tvshow;
     }
 
-    public function setTvShow(?TvShow $tvShow): self
+    public function setTvshow(?TvShow $tvshow): self
     {
-        $this->tvShow = $tvShow;
+        $this->tvshow = $tvshow;
 
         return $this;
     }

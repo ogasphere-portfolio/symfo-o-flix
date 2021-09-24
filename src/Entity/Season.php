@@ -48,9 +48,18 @@ class Season
      * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season")
      */
     private $episode;
-
+   
     public function __construct()
     {
+
+        $this->setUpdatedAt(new \DateTimeImmutable('now'));    
+        
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTimeImmutable('now'));
+        }
+        if ($this->getPublishedAt() === null) {
+            $this->setPublishedAt(new \DateTimeImmutable('now'));
+        }
         $this->episode = new ArrayCollection();
     }
 

@@ -2,10 +2,12 @@
 
 namespace App;
 
-use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+
+use Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
+use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 class Kernel extends BaseKernel
 {
@@ -35,4 +37,14 @@ class Kernel extends BaseKernel
             $routes->import('../config/{routes}.php');
         }
     }
+   /*  public function registerBundles()
+{
+    //...
+    if (in_array($this->getEnvironment(), ['dev'])) {
+        //...
+        $bundles[] = new NelmioAliceBundle();
+    }
+
+    return $bundles;
+} */
 }
