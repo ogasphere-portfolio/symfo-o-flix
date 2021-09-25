@@ -18,7 +18,7 @@ class TvShowController extends AbstractController
 {
 
      /**
-     * @Route("/", name="tvshow_List")
+     * @Route("/", name="_browse")
      */
     public function home(TvShowRepository $tvShowRepository): Response
     {
@@ -27,7 +27,7 @@ class TvShowController extends AbstractController
 
         // actuellement pleins de requetes sont effectuées pour récupérées les données au compte goutte
 
-        return $this->render('home.html.twig', [
+        return $this->render('tv_show/index.html.twig', [
             'tvShows' => $tvShows,
         ]);
     }
@@ -44,6 +44,7 @@ class TvShowController extends AbstractController
         // 
         return $this->render('tv_show/read.html.twig', [
             'tv_show' => $tvShow,
+            'tvshow_id' => $id,
         ]);
     }
 }
