@@ -16,6 +16,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 */
 class TvShowController extends AbstractController
 {
+
+     /**
+     * @Route("/", name="tvshow_List")
+     */
+    public function home(TvShowRepository $tvShowRepository): Response
+    {
+        // récupérer le tvshow dont l'id est fourni (paramConverter ou repository)
+        $tvShows = $tvShowRepository->findAll();
+
+        // actuellement pleins de requetes sont effectuées pour récupérées les données au compte goutte
+
+        return $this->render('home.html.twig', [
+            'tvShows' => $tvShows,
+        ]);
+    }
    /**
      * @Route("/{id}", name="_read")
      */

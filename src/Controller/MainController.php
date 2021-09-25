@@ -18,12 +18,12 @@ class MainController extends AbstractController
     public function home(TvShowRepository $tvShowRepository): Response
     {
         // récupérer le tvshow dont l'id est fourni (paramConverter ou repository)
-        $tvShow = $tvShowRepository->findAll();
+        $tvShows = $tvShowRepository->findAll();
 
         // actuellement pleins de requetes sont effectuées pour récupérées les données au compte goutte
 
         return $this->render('home.html.twig', [
-            'tv_show' => $tvShow,
+            'tvShows' => $tvShows,
         ]);
     }
 }

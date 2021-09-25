@@ -98,12 +98,12 @@ class TvShow
         return $this;
     }
 
-    public function getSynopsis(): ?string
+    public function getSynopsys(): ?string
     {
         return $this->synopsys;
     }
 
-    public function setSynopsis(string $synopsys): self
+    public function setSynopsys(string $synopsys): self
     {
         $this->synopsis = $synopsys;
 
