@@ -44,7 +44,7 @@ class TvShowController extends AbstractController
         // 
         return $this->render('tv_show/read.html.twig', [
             'tv_show' => $tvShow,
-            'tvshow_id' => $id,
+            'id' => $id,
         ]);
     }
 }
