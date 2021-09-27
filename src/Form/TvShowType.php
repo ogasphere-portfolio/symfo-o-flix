@@ -6,6 +6,7 @@ use App\Entity\TvShow;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TvShowType extends AbstractType
 {
@@ -19,7 +20,15 @@ class TvShowType extends AbstractType
             ->add('publishedAt')
             ->add('createdAt')
             ->add('updatedAt')
-            ->add('categories')
+            ->add('categories', CollectionType::class, [
+                'entry_type' => CategoryType::class,
+                'entry_options' => ['label' => false]])
+            ->add('seasons', CollectionType::class, [
+                'entry_type' => SeasonType::class,
+                'entry_options' => ['label' => false]])
+            ->add('plays', CollectionType::class, [
+                'entry_type' => PlayType::class,
+                'entry_options' => ['label' => false]])
         ;
     }
 

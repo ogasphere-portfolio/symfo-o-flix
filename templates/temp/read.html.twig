@@ -1,0 +1,16 @@
+{% extends "backoffice/base_backoffice.html.twig" %}
+
+{% block title %}Read Category {{ parent() }} {% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+{{ include('_partials/_flash_messages.html.twig') }}
+
+{{ form(category_form) }}
+
+<a href="{{ url('backoffice_category_edit', {"id" : category_id}) }}" class="btn btn-primary">Modifier</a>
+
+</div>
+{% endblock %}

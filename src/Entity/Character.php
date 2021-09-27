@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Character
 {
+    const GENDER_MALE = 1;
+    const GENDER_FEMALE = 2;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue

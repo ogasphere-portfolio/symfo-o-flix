@@ -63,7 +63,7 @@ class CategoryController extends AbstractController
      */
     public function edit(Request $request, Category $category): Response
     {
-        $form = $this->createForm(Category1Type::class, $category);
+        $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -79,14 +79,17 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_category_delete", methods={"POST"})
+     * @Route("/delete/{id}", name="admin_category_delete", methods={"POST"})
      */
     public function delete(Request $request, Category $category): Response
     {
+        
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($category);
             $entityManager->flush();
+            
+
         }
 
         return $this->redirectToRoute('admin_category_index', [], Response::HTTP_SEE_OTHER);

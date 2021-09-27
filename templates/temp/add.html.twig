@@ -1,0 +1,34 @@
+{% extends 'backoffice/base_backoffice.html.twig' %}
+
+{% block title %}Hello CategoryController!{% endblock %}
+
+{% block body %}
+<div class="container">
+
+{{ include('_partials/_flash_messages.html.twig') }}
+
+<div class="text-end">
+<a href="{{ url('backoffice_category_browse') }}" class="btn btn-primary">Back to list</a>
+</div>
+{{ form_start(category_form) }}
+
+    {{ form_row(category_form.name) }}
+    
+    {# 
+    {{ form_label(category_form.name) }}
+    {{ form_widget(category_form.name) }} 
+    #}
+
+    {# {{ form_row(category_form.createdAt) }} #}
+
+    <button type="submit" class="btn btn-primary mt-4">
+    {% if '_category_add' in app.request.get('_route') %}
+    Create
+    {% else %}
+    Update
+    {% endif %}
+    </button>
+
+{{ form_end(category_form) }}
+</div>
+{% endblock %}

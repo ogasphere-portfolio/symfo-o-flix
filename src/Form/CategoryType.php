@@ -18,9 +18,7 @@ class CategoryType extends AbstractType
                 'help' => 'de 4 à 20 caractères.',
                 'attr' => ['class' => 'toto est rouge'],
             ])
-            ->add('createdAt', null, [
-                'widget' => 'single_text',
-            ])
+           
         ;
     }
 

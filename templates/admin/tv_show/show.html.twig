@@ -42,9 +42,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin/tv_show_index') }}">back to list</a>
+    <a href="{{ path('admin_tv_show_index') }}">back to list</a>
 
-    <a href="{{ path('admin/tv_show_edit', {'id': tv_show.id}) }}">edit</a>
+    <a href="{{ path('admin_tv_show_edit', {'id': tv_show.id}) }}">edit</a>
 
     {{ include('admin/tv_show/_delete_form.html.twig') }}
 {% endblock %}

@@ -1,39 +1,37 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
-{% block title %}Category index{% endblock %}
+{% block title %}Category list {{ parent() }}{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for category in categories %}
-            <tr>
-                <td>{{ category.id }}</td>
-                <td>{{ category.name }}</td>
-                <td>{{ category.createdAt ? category.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ category.updatedAt ? category.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('admin_category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('admin_category_edit', {'id': category.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+<div class="container">
+{{ include('_partials/_flash_messages.html.twig') }}
 
-    <a href="{{ path('admin_category_new') }}">Create new</a>
+<h1>Category list</h1>
+<div class="text-end">
+<a href="{{ url('admin_category_new') }}" class="btn btn-primary">Create</a>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for category in categories %}
+    <tr>
+      <th scope="row">{{ category.id }}</th>
+      <td>{{ category.name }}</td>
+      <td>
+        <a class="btn btn-success" href="{{ url('admin_category_show', {"id": category.id}) }}">Read</a>
+        <a class="btn btn-primary" href="{{ url('admin_category_edit', {"id": category.id}) }}">Edit</a>
+        {{ include('admin/category/_delete_form.html.twig') }}
+     </td>
+    </tr>
+{% endfor %}
+  </tbody>
+</table>
+</div>
 {% endblock %}
