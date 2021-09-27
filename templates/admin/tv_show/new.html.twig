@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {% block title %}New TvShow{% endblock %}
 
@@ -7,5 +7,5 @@
 
     {{ include('admin/tv_show/_form.html.twig') }}
 
-    <a href="{{ path('admin/tv_show_index') }}">back to list</a>
+    <a href="{{ path('admin_tv_show_index') }}">back to list</a>
 {% endblock %}

@@ -16,9 +16,11 @@ class CategoryType extends AbstractType
             ->add('name', null, [
                 "label" => "Nom de la catégorie",
                 'help' => 'de 4 à 20 caractères.',
-                'attr' => ['class' => 'toto est rouge'],
+                'attr' => ['class' => 'form-control'],
             ])
-           
+            ->add('createdAt', null, [
+                'widget' => 'single_text',
+            ])
         ;
     }
 

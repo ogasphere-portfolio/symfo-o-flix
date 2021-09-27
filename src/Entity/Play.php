@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\RolePlayRepository;
+use App\Repository\PlayRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=RolePlayRepository::class)
+ * @ORM\Entity(repositoryClass=PlayRepository::class)
  */
 class Play
 {
@@ -73,5 +73,9 @@ class Play
         $this->tvshow = $tvshow;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->charact;
     }
 }

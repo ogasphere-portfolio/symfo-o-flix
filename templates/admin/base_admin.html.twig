@@ -14,19 +14,19 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a 
-          {% if app.request.get('_route') starts with 'backoffice_category' %}
+          {% if app.request.get('_route') starts with 'admin_category' %}
           class="nav-link active" aria-current="page"
           {% else %}
-          class="nav-link"  href="{{ url('backoffice_category_browse') }}"
+          class="nav-link"  href="{{ url('admin_category_index') }}"
           {% endif %}
           >Category</a>
         </li>
         <li class="nav-item">
           <a 
-          {% if app.request.get('_route') starts with 'backoffice_character' %}
+          {% if app.request.get('_route') starts with 'admin_character' %}
           class="nav-link active" aria-current="page"
           {% else %}
-          class="nav-link"  href="{{ url('backoffice_character_browse') }}"
+          class="nav-link"  href="{{ url('admin_character_index') }}"
           {% endif %}
           >Character</a>
         </li>

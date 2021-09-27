@@ -229,7 +229,7 @@ class TvShow
      */
     public function getPlays(): Collection
     {
-        return $this->Plays;
+        return $this->plays;
     }
 
     public function addPlay(Play $play): self
@@ -244,7 +244,7 @@ class TvShow
 
     public function removePlay(Play $play): self
     {
-        if ($this->Plays->removeElement($play)) {
+        if ($this->plays->removeElement($play)) {
             // set the owning side to null (unless already changed)
             if ($play->getTvshow() === $this) {
                 $play->setTvshow(null);
@@ -252,5 +252,9 @@ class TvShow
         }
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->title;
     }
 }

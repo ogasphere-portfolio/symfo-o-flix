@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {% block title %}TvShow index{% endblock %}
 
@@ -12,10 +12,10 @@
                 <th>Title</th>
                 <th>Synopsys</th>
                 <th>Image</th>
-                <th>NbLikes</th>
-                <th>PublishedAt</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Nb Likes</th>
+                <th>Publié le</th>
+                <th>Créer le </th>
+                <th>Modifié le</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,11 +26,10 @@
                 <td>{{ tv_show.title }}</td>
                 <td>{{ tv_show.synopsys }}</td>
                 <td><img src="{{ tv_show.image}}" alt="titre"  style="width:50%"/></td>
-              
                 <td>{{ tv_show.nbLikes }}</td>
-                <td>{{ tv_show.publishedAt ? tv_show.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tv_show.createdAt ? tv_show.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ tv_show.updatedAt ? tv_show.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tv_show.publishedAt ? tv_show.publishedAt|date('Y-m-d') : '' }}</td>
+                <td>{{ tv_show.createdAt ? tv_show.createdAt|date('Y-m-d') : '' }}</td>
+                <td>{{ tv_show.updatedAt ? tv_show.updatedAt|date('Y-m-d') : '' }}</td>
                 <td>
                     <a href="{{ path('admin_tv_show_show', {'id': tv_show.id}) }}">show</a>
                     <a href="{{ path('admin_tv_show_edit', {'id': tv_show.id}) }}">edit</a>

@@ -1,0 +1,11 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block title %}New Episode{% endblock %}
+
+{% block body %}
+    <h1>Create new Episode</h1>
+
+    {{ include('admin_episode/_form.html.twig') }}
+
+    <a href="{{ path('admin_episode_index') }}">back to list</a>
+{% endblock %}

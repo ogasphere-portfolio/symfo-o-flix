@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base_admin.html.twig' %}
 
 {% block title %}TvShow{% endblock %}
 
@@ -29,15 +29,15 @@
             </tr>
             <tr>
                 <th>PublishedAt</th>
-                <td>{{ tv_show.publishedAt ? tv_show.publishedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tv_show.publishedAt ? tv_show.publishedAt|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>CreatedAt</th>
-                <td>{{ tv_show.createdAt ? tv_show.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tv_show.createdAt ? tv_show.createdAt|date('Y-m-d') : '' }}</td>
             </tr>
             <tr>
                 <th>UpdatedAt</th>
-                <td>{{ tv_show.updatedAt ? tv_show.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ tv_show.updatedAt ? tv_show.updatedAt|date('Y-m-d') : '' }}</td>
             </tr>
         </tbody>
     </table>
