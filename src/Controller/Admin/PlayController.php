@@ -50,7 +50,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="play_show", methods={"GET"})
+     * @Route("/{id}", name="play_show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(Play $play): Response
     {
@@ -60,7 +60,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="play_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="play_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, Play $play): Response
     {
@@ -80,7 +80,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="play_delete", methods={"POST"})
+     * @Route("/{id}", name="play_delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, Play $play): Response
     {

@@ -49,7 +49,7 @@ class TvShowController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_tv_show_show", methods={"GET"})
+     * @Route("/{id}", name="admin_tv_show_show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(TvShow $tvShow): Response
     {
@@ -59,7 +59,7 @@ class TvShowController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_tv_show_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin_tv_show_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, TvShow $tvShow): Response
     {
@@ -80,7 +80,7 @@ class TvShowController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_tv_show_delete", methods={"POST"})
+     * @Route("/{id}", name="admin_tv_show_delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, TvShow $tvShow): Response
     {

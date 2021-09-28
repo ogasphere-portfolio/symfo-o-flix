@@ -49,7 +49,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_character_show", methods={"GET"})
+     * @Route("/{id}", name="admin_character_show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(Character $character): Response
     {
@@ -59,7 +59,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="admin_character_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin_character_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, Character $character): Response
     {
@@ -79,7 +79,7 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="admin_character_delete", methods={"POST"})
+     * @Route("/{id}", name="admin_character_delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, Character $character): Response
     {
