@@ -29,3 +29,10 @@ body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
+
+input[type=file]::file-selector-button {
+    /* Add properties here */
+    color: rgb(28, 16, 39);
+    background-color:rgb(43, 129, 43);
+
+  }

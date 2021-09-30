@@ -7,17 +7,19 @@ use App\Entity\Play;
 use App\Form\PlayType;
 use App\Repository\PlayRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/play")
+ * @Route("admin/play")
+ * @IsGranted("ROLE_ADMIN")
  */
 class PlayController extends AbstractController
 {
     /**
-     * @Route("/", name="play_index", methods={"GET"})
+     * @Route("/", name="admin_play_index", methods={"GET"})
      */
     public function index(PlayRepository $playRepository): Response
     {
@@ -27,7 +29,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="play_new", methods={"GET","POST"})
+     * @Route("/new", name="admin_play_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -50,7 +52,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="play_show", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{id}", name="admin_play_show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(Play $play): Response
     {
@@ -60,7 +62,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="play_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="admin_play_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, Play $play): Response
     {
@@ -80,7 +82,7 @@ class PlayController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="play_delete", methods={"POST"}, requirements={"id"="\d+"})
+     * @Route("/{id}", name="admin_play_delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, Play $play): Response
     {

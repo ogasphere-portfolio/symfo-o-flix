@@ -72,7 +72,51 @@ class TvShowRepository extends ServiceEntityRepository
         // returns the selected TvShow Object
         return $query->getResult();
     }
-    
+    /**
+     * Récupère toutes les informations liées au tvShow demandé
+     * @return TvShow
+     */
+    public function findOneWithInfosDQL(int $id, bool $withSeason = false, bool $withEpisode = false): TvShow
+    {
+        $entityManager = $this->getEntityManager();
+
+        $select = " SELECT t ";
+        $from = " FROM App\Entity\TvShow t ";
+        $join = " ";
+        $where = " WHERE t.id = :id ";
+
+        if ($withSeason) {
+            // équivalent à 
+            // $select = $select . ", s";
+            $select .= ", s";
+            $join .= " LEFT JOIN t.seasons s ";
+        }
+
+        if ($withEpisode) {
+            $select .= ", e ";
+            $join .= " LEFT JOIN s.episodes e ";
+        }
+
+
+        $join .= " LEFT JOIN t.categories c ";
+        $select .= ", c";
+        $join .= " LEFT JOIN t.rolePlays r ";
+        $select .= ", r";
+        $join .= " LEFT JOIN r.personage p ";
+        $select .= ", p";
+
+        
+        $dqlQuery = $select . $from . $join . $where;
+        
+        // on va utiliser le DQL ( Doctrine Query Language)
+        $query = $entityManager->createQuery(
+            $dqlQuery
+        )->setParameter('id', $id);
+
+        // returns the selected TvShow Object
+        return $query->getOneOrNullResult();
+    }
+
     // /**
     //  * @return TvShow[] Returns an array of TvShow objects
     //  */

@@ -7,17 +7,19 @@ use App\Entity\Season;
 use App\Form\SeasonType;
 use App\Repository\SeasonRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/season")
+ * @Route("admin/season")
+ * @IsGranted("ROLE_ADMIN")
  */
 class SeasonController extends AbstractController
 {
     /**
-     * @Route("/", name="season_index", methods={"GET"})
+     * @Route("/", name="admin_season_index", methods={"GET"})
      */
     public function index(SeasonRepository $seasonRepository): Response
     {
@@ -27,7 +29,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="season_new", methods={"GET","POST"})
+     * @Route("/new", name="admin_season_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -50,7 +52,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="season_show", methods={"GET"}, requirements={"id"="\d+"})
+     * @Route("/{id}", name="admin_season_show", methods={"GET"}, requirements={"id"="\d+"})
      */
     public function show(Season $season): Response
     {
@@ -60,7 +62,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="season_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
+     * @Route("/{id}/edit", name="admin_season_edit", methods={"GET","POST"}, requirements={"id"="\d+"})
      */
     public function edit(Request $request, Season $season): Response
     {
@@ -80,7 +82,7 @@ class SeasonController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="season_delete", methods={"POST"}, requirements={"id"="\d+"})
+     * @Route("/{id}", name="admin_season_delete", methods={"POST"}, requirements={"id"="\d+"})
      */
     public function delete(Request $request, Season $season): Response
     {

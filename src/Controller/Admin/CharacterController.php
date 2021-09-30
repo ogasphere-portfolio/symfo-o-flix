@@ -6,12 +6,14 @@ use App\Entity\Character;
 use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/character")
+ * @IsGranted("ROLE_ADMIN")
  */
 class CharacterController extends AbstractController
 {

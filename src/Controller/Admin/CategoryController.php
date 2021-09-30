@@ -6,17 +6,20 @@ use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/admin/category")
+ * @IsGranted("ROLE_ADMIN")
  */
 class CategoryController extends AbstractController
 {
     /**
      * @Route("/", name="admin_category_index", methods={"GET"})
+     * 
      */
     public function index(CategoryRepository $categoryRepository): Response
     {
