@@ -25,6 +25,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
+    /**
+     * @ORM\Column(type="string", length=25)
+     */
+    private $pseudo;
 
     /**
      * @ORM\Column(type="json")
@@ -41,11 +45,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="boolean")
      */
     private $isVerified = false;
-   
-    public function __toString()
+
+
+    // fonction à utiliser si on veut pouvoir ne selectionner qu'un seul role
+    // sinon on aura une erreur : array to string
+    public function getSingleRole() : string
     {
-        return $this->id;
+        if (in_array('ROLE_ADMIN', $this->roles))
+        {
+            return 'ROLE_ADMIN';
+        }
+
+        return 'ROLE_USER';
     }
+
+    public function setSingleRole(string $role) : self {
+        $this->roles = [$role];
+
+        return $this;
+    }
+    
     
     public function getId(): ?int
     {
@@ -144,6 +163,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): self
     {
         $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of pseudo
+     */ 
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * Set the value of pseudo
+     *
+     * @return  self
+     */ 
+    public function setPseudo($pseudo)
+    {
+        $this->pseudo = $pseudo;
 
         return $this;
     }

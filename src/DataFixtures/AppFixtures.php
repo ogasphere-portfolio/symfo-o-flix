@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Play;
+use App\Entity\User;
 use App\Entity\Season;
 use App\Entity\TvShow;
 use DateTimeImmutable;
@@ -13,9 +14,16 @@ use App\Entity\Character;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\OflixProvider;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $entityManager)
     {
         $faker = Factory::create();
@@ -121,6 +129,25 @@ class AppFixtures extends Fixture
                 }
             }
         }
+
+        $basicUser = new User();
+        $entityManager->persist($basicUser);
+        $basicUser->setRoles(['ROLE_USER']);
+        $basicUser->setPseudo('user');
+        $basicUser->setEmail('user@oflix.com');
+         // il faut fournir un mot de passe hashé
+        // pour cela on a injecté le hasher dans le constructeur
+        // et le conteneur de service s'est occupé de l'instancié
+        $hashedPassword = $this->passwordHasher->hashPassword($basicUser, 'toto');
+        $basicUser->setPassword($hashedPassword);
+
+
+        $adminUser = new User();
+        $entityManager->persist($adminUser);
+        $adminUser->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+        $adminUser->setPseudo('admin');
+        $adminUser->setEmail('admin@oflix.com');
+        $adminUser->setPassword($this->passwordHasher->hashPassword($adminUser, 'toto'));
 
         // enregistrer le tout en BDD
         $entityManager->flush();
