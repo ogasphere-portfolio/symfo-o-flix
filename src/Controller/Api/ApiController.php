@@ -3,6 +3,7 @@ namespace App\Controller\Api;
 
 
 
+use App\Utils\OmdbApi;
 use Betaseries\Betaseries;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,6 +35,19 @@ class ApiController extends AbstractController
             'tvShows' => $show,
         ]);
     }
+    
+     /**
+     * Affiche 3 séries au hasard
+     * 
+     * @Route("/omdbapi", name="homepage")
+     */
+    public function ombdapi(OmdbApi $omdbApi): Response
+    {
+        dd($omdbApi->loadImageFromApi('Mr Robot'));
 
+        // Le template n'affichera que 3 éléments
+        return $this->render('main/homepage.html.twig', [
+        ]);
+    }
    
 }
