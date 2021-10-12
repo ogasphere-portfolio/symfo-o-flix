@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\SeasonRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\SeasonRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SeasonRepository::class)
@@ -16,16 +18,20 @@ class Season
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $seasonNumber;
 
     /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
+     * @ORM\Column(type="datetime_immutable")
      */
     private $publishedAt;
 
@@ -40,15 +46,15 @@ class Season
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="seasons")
-     */
-    private $tvShow;
-
-    /**
      * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season")
      */
     private $episodes;
-   
+
+    /**
+     * @ORM\ManyToOne(targetEntity=TvShow::class, inversedBy="seasons")
+     */
+    private $tvShow;
+    
     public function __construct()
     {
 

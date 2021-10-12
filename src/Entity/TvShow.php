@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TvShowRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TvShowRepository::class)
@@ -18,21 +20,29 @@ class TvShow
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * 
+     * @Groups("api_tvshow_browse")
      */
-    private $synopsys;
+    private $synopsis;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url
      */
     private $image;
 
@@ -48,24 +58,33 @@ class TvShow
 
     /**
      * @ORM\Column(type="datetime_immutable")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Season::class, mappedBy="tvShow")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $seasons;
 
     /**
      * @ORM\ManyToMany(targetEntity=Category::class, inversedBy="tvShows")
+     * 
+     * @Groups("api_tvshow_browse")
      */
     private $categories;
 
+    
     /**
      * @ORM\OneToMany(targetEntity=Play::class, mappedBy="tvshow")
      */
@@ -98,14 +117,14 @@ class TvShow
         return $this;
     }
 
-    public function getSynopsys(): ?string
+    public function getSynopsis(): ?string
     {
-        return $this->synopsys;
+        return $this->synopsis;
     }
 
-    public function setSynopsys(string $synopsys): self
+    public function setSynopsis(string $synopsis): self
     {
-        $this->synopsis = $synopsys;
+        $this->synopsis = $synopsis;
 
         return $this;
     }

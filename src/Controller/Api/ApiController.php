@@ -29,7 +29,6 @@ class ApiController extends AbstractController
         $client = new \Betaseries\Client($betaseries);
         // Affiche les informations d'une série. (Game of Thrones)
         $show = $client->api('shows')->lists();
-        // actuellement pleins de requetes sont effectuées pour récupérées les données au compte goutte
         
         return $this->render('home.html.twig', [
             'tvShows' => $show,
