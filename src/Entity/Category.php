@@ -21,7 +21,7 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("api_tvshow_browse")
+     * @Groups({"api_tvshow_browse", "api_category_browse"})
      */
     private $id;
 
@@ -33,7 +33,7 @@ class Category
      *      max = 20
      * )
      * 
-     * @Groups("api_tvshow_browse")
+     * @Groups({"api_tvshow_browse", "api_category_browse"})
      */
     private $name;
 
@@ -49,6 +49,7 @@ class Category
 
     /**
      * @ORM\ManyToMany(targetEntity=TvShow::class, mappedBy="categories")
+     * @Groups("api_category_browse")
      */
     private $tvShows;
     

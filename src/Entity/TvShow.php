@@ -21,7 +21,7 @@ class TvShow
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      * 
-     * @Groups("api_tvshow_browse")
+     * @Groups({"api_tvshow_browse", "api_category_browse"})
      */
     private $id;
 
@@ -29,14 +29,14 @@ class TvShow
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank
      * 
-     * @Groups("api_tvshow_browse")
+     * @Groups({"api_tvshow_browse", "api_category_browse"})
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
      * 
-     * @Groups("api_tvshow_browse")
+     * @Groups({"api_tvshow_browse", "api_category_browse"})
      */
     private $synopsis;
 
