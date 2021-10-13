@@ -159,7 +159,7 @@ class CategoriesController extends AbstractController
         $responseArray = [
             'error' => true,
             'userMessage' => 'Ressource non trouvé',
-            'internalMessage' => 'Ce tv show n\'existe pas dans la BDD',
+            'internalMessage' => 'Cette catégorie n\'existe pas dans la BDD',
         ];
 
         return $this->json($responseArray, Response::HTTP_UNPROCESSABLE_ENTITY);
