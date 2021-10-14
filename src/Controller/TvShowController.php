@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\TvShow;
 use App\Repository\TvShowRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -32,19 +33,16 @@ class TvShowController extends AbstractController
         ]);
     }
    /**
-     * @Route("/{id}", name="_read")
+     * @Route("/{slug}", name="_read")
      */
-    public function read($id, TvShowRepository $tvShowRepository): Response
+    public function read(TvShow $tvShow, TvShowRepository $tvShowRepository): Response
     {
         // récupérer le tvshow dont l'id est fourni (paramConverter ou repository)
-        $tvShow = $tvShowRepository->findOneWithAllInfos($id, true, true);
-
-        // actuellement pleins de requetes sont effectuées pour récupérées les données au compte goutte
-
-        // 
+        
+        $tvShow = $tvShowRepository->findOneWithInfosDQL($tvShow->getId(), true, true);
         return $this->render('tv_show/read.html.twig', [
             'tv_show' => $tvShow,
-            'id' => $id,
+           
         ]);
     }
 }

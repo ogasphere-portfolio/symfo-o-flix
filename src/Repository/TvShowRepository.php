@@ -100,9 +100,9 @@ class TvShowRepository extends ServiceEntityRepository
 
         $join .= " LEFT JOIN t.categories c ";
         $select .= ", c";
-        $join .= " LEFT JOIN t.rolePlays r ";
+        $join .= " LEFT JOIN t.plays r ";
         $select .= ", r";
-        $join .= " LEFT JOIN r.personage p ";
+        $join .= " LEFT JOIN r.charact p ";
         $select .= ", p";
 
         

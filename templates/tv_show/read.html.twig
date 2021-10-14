@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Serie {{ tv_show.title }} - Oflix{% endblock %}
+
+{% block body %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{{ tv_show.title }}</h1>
+            <img src="{{ tv_show.image }}" alt="" height="400">
+            <p class="lead text-muted">
+            {% for season in tv_show.seasons %}
+                <a href="#"><span class="badge bg-secondary">Saison {{ season.seasonNumber }}</span></a>
+            {% endfor %}
+            </p>
+            <p class="lead text-muted">
+                Avec : 
+                {% for i in 1..3 %} 
+                {% set character = tv_show.plays[i].charact %}
+                    <a href="#">{{ character.firstName }} {{ character.lastName }}</a>{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    </div>
+</section>
+
+<div class="py-5 bg-light">
+    <div class="container">
+        <p>{{ tv_show.synopsis }}</p>
+    </div>
+</div>
+
+{% endblock %}

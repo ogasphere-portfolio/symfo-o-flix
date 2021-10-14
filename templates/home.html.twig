@@ -26,10 +26,10 @@
                             
 
                             <div class="card-body">
-                                <p class="card-text">{{tvShow.synopsys|u.truncate(150, '...', false)}}</p>
+                                <p class="card-text">{{tvShow.synopsis|u.truncate(150, '...', false)}}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <a href="{{path('tvshow_read',{id: tvShow.id})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
+                                        <a href="{{path('tvshow_read',{slug: tvShow.slug})}}" class="btn btn-sm btn-outline-secondary">Voir</a>
                                         <a href="tvshow_details.html" class="btn btn-sm btn-outline-secondary">Editer</a>
                                     </div>
                                     <small class="text-muted">
