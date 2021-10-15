@@ -12,10 +12,15 @@ class Slugger {
      */
     public function makeSlug(string $toBeSlug){
 
-        // on met en minuscule
-        // on remplace les ' ' par des '-'
-        $slug = str_replace(" ", "-", strtolower($toBeSlug));
+        $slug = strtolower($toBeSlug);
+        // dump($slug);
+        // h (saison 1)
+        $slug = preg_replace('/[^a-z0-9- ]/', '', $slug);
+        // dump($slug);
 
+        // h saison 1
+        $slug = str_replace(" ", "-", $slug);
+        
 
         return $slug;
     }

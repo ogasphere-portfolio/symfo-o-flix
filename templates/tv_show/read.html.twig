@@ -16,7 +16,12 @@
             <p class="lead text-muted">
                 Avec : 
                 {% for i in 1..3 %} 
-                {% set character = tv_show.plays[i].charact %}
+                    <pre>
+                        {{ dump(tv_show.plays) }}
+                        
+                    </pre>
+                   
+                    {% set character = tv_show.plays[i].charact %}
                     <a href="#">{{ character.firstName }} {{ character.lastName }}</a>{% if not loop.last %}, {% endif %}
                 {% endfor %}
             </p>
