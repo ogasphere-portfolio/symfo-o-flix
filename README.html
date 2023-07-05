@@ -1,0 +1,101 @@
+<h1 id="projet-oflix">Projet Oflix</h1>
+<h2 id="supports-de-cours-associés">Supports de cours associés</h2>
+<ul>
+<li><a href="https://symfony.com/doc/current/doctrine/associations.html">Doctrine Associations</a></li>
+<li><a href="https://kourou.oclock.io/ressources/fiche-recap/symfo-s2-j2-associations-avec-doctrine/">Lien vers la fiche récap Doctrine Associations</a></li>
+</ul>
+<h2 id="challenge">Challenge</h2>
+<p>D'après le MCD suivant :</p>
+<pre><code>hljs <span class="hljs-attribute">CHARACTER</span> : firstname, lastname, gender, bio, age
+<span class="hljs-attribute">HAS</span>, <span class="hljs-number">0</span>N TVSHOW, <span class="hljs-number">11</span> SEASON
+<span class="hljs-attribute">SEASON</span> : season number, published at
+
+<span class="hljs-attribute">PLAY</span>, <span class="hljs-number">0</span>N TVSHOW, <span class="hljs-number">1</span>N CHARACTER: creditOrder
+<span class="hljs-attribute">TVSHOW</span> : title, synopsis, image, nbLikes, published at
+<span class="hljs-attribute">CONTAINS</span>, <span class="hljs-number">0</span>N SEASON , <span class="hljs-number">11</span> EPISODE
+
+<span class="hljs-attribute">CATEGORY</span> : name
+<span class="hljs-attribute">LINKED</span>, <span class="hljs-number">0</span>N TVSHOW, <span class="hljs-number">0</span>N CATEGORY
+<span class="hljs-attribute">EPISODE</span> : episode number, title
+</code></pre>
+<p><img src="mcd_mld_oflix.png" alt="MCD Oflix" /></p>
+<h3 id="démarrage">Démarrage</h3>
+<ul>
+<li>On part d'un nouveau Projet en Website skeleton : <code>composer create-project symfony/website-skeleton oflix</code></li>
+<li>Ensuite on configure le fichier <code>.env.local</code> (Vous pouvez nommer la DB <code>oflix</code>)</li>
+<li>Puis création de ta DB : <code>php bin/console doctrine:database:create</code></li>
+</ul>
+<h3 id="création-des-entités">Création des entités</h3>
+<ul>
+<li>Créez toutes les entités du MCD à l'aide de la commande <code>php bin/console make:entity</code></li>
+</ul>
+<h4 id="tvshow">TvShow</h4>
+<ul>
+<li><code>title</code></li>
+<li><code>synopsis</code></li>
+<li><code>image</code> (url de l'image)</li>
+<li><code>nbLikes</code></li>
+<li><code>publishedAt</code></li>
+<li><code>createdAt</code></li>
+<li><code>updatedAt</code></li>
+</ul>
+<h4 id="season">Season</h4>
+<ul>
+<li><code>seasonNumber</code></li>
+<li><code>publishedAt</code></li>
+<li><code>createdAt</code></li>
+<li><code>updatedAt</code></li>
+</ul>
+<h4 id="episode">Episode</h4>
+<ul>
+<li><code>episodeNumber</code></li>
+<li><code>title</code></li>
+<li><code>publishedAt</code></li>
+<li><code>createdAt</code></li>
+<li><code>updatedAt</code></li>
+</ul>
+<p>etc…</p>
+<p>Puis créez une migration et appliquez la : </p>
+<pre><code class="hljs bash language-bash">php bin/console make:migration
+php bin/console <span class="hljs-keyword">do</span>:mi:mi
+</code></pre>
+<h3 id="relations-onetomany--manytoone">Relations OneToMany / ManyToOne</h3>
+<p>Créez les relations entre : </p>
+<ul>
+<li><code>TvShow</code> et <code>Season</code> : Une série peut avoir plusieurs saisons.</li>
+<li><code>Season</code> et <code>Episode</code> : Une saison peut avoir plusieurs épisodes.</li>
+</ul>
+<p>Puis créez une migration et appliquez la : </p>
+<pre><code class="hljs bash language-bash">php bin/console make:migration
+php bin/console <span class="hljs-keyword">do</span>:mi:mi
+</code></pre>
+<h3 id="relations-manytomany">Relations ManyToMany</h3>
+<p>Créez les relations entre <code>TvShow</code>, <code>Character</code> et <code>Category</code></p>
+<ul>
+<li><code>TvShow</code> et <code>Character</code> : Une série peut avoir plusieurs personnages, et 1 personnage peut joueur dans plusieurs séries.</li>
+<li><code>TvShow</code> et <code>Category</code> :  Une série peut avoir plusieurs catégories, et 1 catégorie peut être associée à plusieurs séries.</li>
+</ul>
+<p>Puis créez une migration et appliquez la : </p>
+<pre><code class="hljs bash language-bash">php bin/console make:migration
+php bin/console <span class="hljs-keyword">do</span>:mi:mi
+</code></pre>
+<h3 id="lecture-et-affichage">Lecture et affichage</h3>
+<p>Si vous voulez démarrer avec quelques données, créez-en vous-même depuis Adminer.</p>
+<ul>
+<li>Afficher la liste des 3 dernières séries depuis la page d'accueil (regarder du côté de <code>findBy</code>). URL = <code>/</code>.</li>
+<li>Afficher la liste des séries (TvShow) depuis la page des séries. URL = <code>/tvshow/</code>.</li>
+<li>Afficher les détails d'une série. URL = <code>/tvshow/{id}</code>.</li>
+<li>Pour chaque série, affichez les saison<code>S</code>, les personnage<code>S</code> et les catégorie<code>S</code> associés… Ca sent la boucle <code>for</code> on dirait 😉</li>
+</ul>
+<h2 id="bonus-intégration">Bonus intégration</h2>
+<p>Dans le dossier <a href="docs"><code>docs</code></a> se trouve l'intégration du projet <code>oFlix</code> 🎉.<br />
+On y trouve</p>
+<ul>
+<li>Une page d'accueil qui servira de point d'entrée : <code>/</code></li>
+<li>Une page <code>Séries</code> qui affichera les dernières séries publiées : <code>/tvshow/</code></li>
+<li>Une page affichant les détails d'une série selon son ID : <code>/tvshow/{id}</code></li>
+<li>Une page <code>Ma liste</code> qui affichera vos séries préférées : <code>/tvshow/favorite</code></li>
+<li>Une page de <code>Login</code> pour accéder aux contenus réservées aux personnes connectées (A ne surtout pas coder pour le moment ^^)</li>
+</ul>
+<p>Votre mission : l'inclure pour apporter un peu de couleur au projet actuel.</p>
+<p>P.S. : on inclurera d'autres pages au fur et à mesure</p>

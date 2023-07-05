@@ -1,0 +1,39 @@
+<h1 id="création--utilisation-dun-formulaire">Création / utilisation d'un formulaire</h1>
+<p>La documentation est ici : <a href="https://symfony.com/doc/current/forms.html">Doc symfony</a></p>
+<h2 id="installer-le-composant">Installer le composant</h2>
+<p><code>composer require symfony/form</code> </p>
+<h2 id="créer-une-classe-de-formulaire">Créer une classe de formulaire</h2>
+<p><code>bin/console make:form</code></p>
+<p>Modifier cette classe pour avoir l'affichage souhaité</p>
+<h2 id="afficher-le-formulaire">Afficher le formulaire</h2>
+<p>Dans un controleur on va créer un objet de formulaire pour l'afficher</p>
+<p>cf Controller\Admin\CategoryController.php::update</p>
+<pre><code class="hljs php language-php">    <span class="hljs-comment">// création du formulaire</span>
+    <span class="hljs-variable">$categoryForm</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">createForm</span>(<span class="hljs-title class_">CategoryType</span>::<span class="hljs-variable language_">class</span>, <span class="hljs-variable">$category</span>);
+
+    <span class="hljs-comment">// ici le code de traitement du formulaire voir plus bas</span>
+
+    <span class="hljs-comment">// affichage du formulaire</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">render</span>(<span class="hljs-string">&#x27;admin/category/add.html.twig&#x27;</span>, [
+        <span class="hljs-string">&#x27;category_form&#x27;</span> =&gt; <span class="hljs-variable">$categoryForm</span>-&gt;<span class="hljs-title function_ invoke__">createView</span>(),
+    ]);
+</code></pre>
+<p>Dans twig utiliser les fonctions <code>form_</code> pour afficher le formulaire cf <a href="https://symfony.com/doc/current/form/form_customization.html#reference-form-twig-functions">la doc</a></p>
+<h2 id="traiter-le-formulaire">Traiter le formulaire</h2>
+<p>Dans la meme méthode qui affiche le formulaire, ajouter entre la création et l'affichage du formulaire.</p>
+<pre><code class="hljs php language-php">    <span class="hljs-variable">$categoryForm</span>-&gt;<span class="hljs-title function_ invoke__">handleRequest</span>(<span class="hljs-variable">$request</span>);
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable">$categoryForm</span>-&gt;<span class="hljs-title function_ invoke__">isSubmitted</span>() &amp;&amp; <span class="hljs-variable">$categoryForm</span>-&gt;<span class="hljs-title function_ invoke__">isValid</span>()) {
+        <span class="hljs-variable">$entityManager</span> = <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">getDoctrine</span>()-&gt;<span class="hljs-title function_ invoke__">getManager</span>();
+
+        <span class="hljs-variable">$entityManager</span>-&gt;<span class="hljs-title function_ invoke__">flush</span>();
+
+        <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">addFlash</span>(<span class="hljs-string">&#x27;success&#x27;</span>, <span class="hljs-string">&quot;La catégorie `<span class="hljs-subst">{$category-&gt;getName()}</span>` a bien été mise à jour&quot;</span>);
+
+        <span class="hljs-keyword">return</span> <span class="hljs-variable language_">$this</span>-&gt;<span class="hljs-title function_ invoke__">redirectToRoute</span>(<span class="hljs-string">&#x27;admin_category_browse&#x27;</span>);
+    }
+</code></pre>
+<h2 id="pour-ajouter-des-contraintes-de-validation">Pour ajouter des contraintes de validation</h2>
+<p>Cela se passe au niveau de l'entité en ajoutant des contraintes à l'aide d'annotations : cf <a href="https://symfony.com/doc/current/validation.html#constraints">la doc sur les contraintes</a></p>
+<h2 id="pour-modifier-le-comportement-daffichage-du-formulaire">Pour modifier le comportement d'affichage du formulaire</h2>
+<p>Cela se passe au niveau de la classe du FormType en passant des options en 3eme argument de la méthode add : cf <a href="https://symfony.com/doc/current/reference/forms/types.html">la liste des options de formType</a> ! chaque formType a des options spécifiques</p>
